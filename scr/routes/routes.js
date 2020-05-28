@@ -104,12 +104,12 @@ router.post('/login', (req, res ) => {
 
 // Ruta del search bar
 router.get('/search/:producto', ( req, res ) => {
-    // const { sessiontoken } = req.headers;
-    // jsonwebtoken.verify( sessiontoken, SECRET_TOKEN, ( err, decoded ) => {
-    //     if( err ){
-    //         res.statusMessage = "Session expired!";
-    //         return res.status( 400 ).end();
-    //     }
+     const { sessiontoken } = req.headers;
+     jsonwebtoken.verify( sessiontoken, SECRET_TOKEN, ( err, decoded ) => {
+         if( err ){
+             res.statusMessage = "Session expired!";
+             return res.status( 400 ).end();
+         }
 
         let producto = req.params.producto;
         console.log(producto);
@@ -135,7 +135,7 @@ router.get('/search/:producto', ( req, res ) => {
             res.statusMessage = "Something went wrong with the DB";
             return res.status( 500 ).end();
         })
-    // });
+     });
 });
 
 // Ruta para guardar un nuevo producto
@@ -306,8 +306,6 @@ router.get('/carrito/:email', (req, res) => {
             res.statusMessage = "Session expired!";
             return res.status( 400 ).end();
         }
-
-<<<<<<< HEAD
     Carritos
     .getCarritoUser( email )
     .then( results => {
@@ -317,7 +315,6 @@ router.get('/carrito/:email', (req, res) => {
         res.statusMessage =  "Something went wrong with the DB";
         return res.status( 500 ).end();
     })
-=======
         let email = req.params.email;
 
         Carritos
@@ -330,7 +327,7 @@ router.get('/carrito/:email', (req, res) => {
             return res.status( 500 ).end();
         })
     });
->>>>>>> c87e2b1b910e99a54f05be39819c31e5c6ef5369
+
 })
 
 // Ruta para agregar un nuevo pedido 
@@ -440,7 +437,6 @@ router.get( '/productos', ( req, res ) => {
     })
 });
 
-<<<<<<< HEAD
 //Ruta para ver todos los pedidos
 
 router.get( '/pedidos', ( req, res ) => {
@@ -454,6 +450,4 @@ router.get( '/pedidos', ( req, res ) => {
         return res.status( 500 ).end();
     })
 });
-=======
->>>>>>> c87e2b1b910e99a54f05be39819c31e5c6ef5369
 module.exports = router;
